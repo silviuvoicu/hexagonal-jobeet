@@ -1,0 +1,23 @@
+parameters:
+    doctrine.repository.abstract.class: Doctrine\ORM\EntityRepository
+    jobeet.finder.job_repository.doctrine.class: Jobeet\Finder\Port\Adapter\Persistence\Doctrine\DoctrineJobRepository
+    jobeet.finder.use_case.create_job.class: Jobeet\Finder\Application\UseCase\CreateJob
+
+services:
+    doctrine.repository.abstract:
+        class: "%doctrine.repository.abstract.class%"
+        abstract: true
+        factory_method: getRepository
+        factory_service: doctrine
+
+    jobeet.finder.job_repository.doctrine:
+        class: "%jobeet.finder.job_repository.doctrine.class%"
+        parent: doctrine.repository.abstract
+        arguments: ['JobeetFinderBundle:Job\Job']
+
+    jobeet.finder.job_repository:
+        alias: jobeet.finder.job_repository.doctrine
+
+    jobeet.finder.use_case.create_job:
+        class: "%jobeet.finder.use_case.create_job.class%"
+        arguments: [@jobeet.finder.job_repository]

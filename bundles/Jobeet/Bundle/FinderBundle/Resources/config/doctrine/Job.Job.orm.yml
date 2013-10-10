@@ -1,0 +1,78 @@
+Jobeet\Finder\Domain\Model\Job\Job:
+    type: entity
+    repositoryClass: Jobeet\Finder\Port\Adapter\Persistence\Doctrine\DoctrineJobRepository
+    table: job
+    id:
+        id:
+            type: integer
+            generator:
+                strategy: AUTO
+
+    fields:
+        type:
+            type: string
+            length: 255
+        
+        company:
+            type: string
+            length: 255
+            nullable: true
+            
+        logo:
+            type: string
+            length: 255
+            
+        url:
+            type: string
+            length: 255
+            
+        position:
+            type: string
+            length: 255
+            nullable: true
+
+        location:
+            type: string
+            length: 255
+            nullable: true
+
+        description:
+            type: string
+            length: 4000
+            nullable: true
+
+        how_to_apply:
+            type: string
+            length: 255
+            nullable: true
+
+        token:
+            type: string
+            length: 255
+            nullable: true
+            unique: true
+
+        is_public:
+            type: boolean
+            nullable: true
+
+        is_activated:
+            type: boolean
+            nullable: true
+            default: 0
+
+        email:
+            type: string
+            length: 255
+            nullable: true
+
+        expires_at:
+            type: datetime
+            nullable: true
+
+    manyToOne:
+        category:
+          targetEntity: Jobeet\Finder\Domain\Model\Category\Category
+          joinColumn:
+            name: category_id
+            referencedColumnName: id

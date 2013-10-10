@@ -1,0 +1,5 @@
+jobeet_finder:
+    resource: "@JobeetFinderBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
