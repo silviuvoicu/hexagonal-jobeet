@@ -78,10 +78,14 @@ class Job
 
     /**
      * @param Category $category
+     *
+     * @return $this
      */
     public function setCategory($category)
     {
         $this->category = $category;
+
+        return $this;
     }
 
     /**
@@ -94,10 +98,14 @@ class Job
 
     /**
      * @param string $company
+     *
+     * @return $this
      */
     public function setCompany($company)
     {
         $this->company = $company;
+
+        return $this;
     }
 
     /**
@@ -110,10 +118,14 @@ class Job
 
     /**
      * @param string $description
+     *
+     * @return $this
      */
     public function setDescription($description)
     {
         $this->description = $description;
+
+        return $this;
     }
 
     /**
@@ -126,10 +138,14 @@ class Job
 
     /**
      * @param string $email
+     *
+     * @return $this
      */
     public function setEmail($email)
     {
         $this->email = $email;
+
+        return $this;
     }
 
     /**
@@ -141,15 +157,19 @@ class Job
     }
 
     /**
-     * @param \DateTime $expiresAt
+     * @param DateTime $expiresAt
+     *
+     * @return $this
      */
     public function setExpiresAt($expiresAt)
     {
         $this->expiresAt = $expiresAt;
+
+        return $this;
     }
 
     /**
-     * @return \DateTime
+     * @return DateTime
      */
     public function getExpiresAt()
     {
@@ -158,10 +178,14 @@ class Job
 
     /**
      * @param string $howToApply
+     *
+     * @return $this
      */
     public function setHowToApply($howToApply)
     {
         $this->howToApply = $howToApply;
+
+        return $this;
     }
 
     /**
@@ -174,10 +198,14 @@ class Job
 
     /**
      * @param boolean $isActivated
+     *
+     * @return $this
      */
     public function setIsActivated($isActivated)
     {
         $this->isActivated = $isActivated;
+
+        return $this;
     }
 
     /**
@@ -190,10 +218,14 @@ class Job
 
     /**
      * @param boolean $isPublic
+     *
+     * @return $this
      */
     public function setIsPublic($isPublic)
     {
         $this->isPublic = $isPublic;
+
+        return $this;
     }
 
     /**
@@ -206,10 +238,14 @@ class Job
 
     /**
      * @param string $location
+     *
+     * @return $this
      */
     public function setLocation($location)
     {
         $this->location = $location;
+
+        return $this;
     }
 
     /**
@@ -222,10 +258,14 @@ class Job
 
     /**
      * @param string $logo
+     *
+     * @return $this
      */
     public function setLogo($logo)
     {
         $this->logo = $logo;
+
+        return $this;
     }
 
     /**
@@ -238,10 +278,14 @@ class Job
 
     /**
      * @param string $position
+     *
+     * @return $this
      */
     public function setPosition($position)
     {
         $this->position = $position;
+
+        return $this;
     }
 
     /**
@@ -254,10 +298,14 @@ class Job
 
     /**
      * @param string $token
+     *
+     * @return $this
      */
     public function setToken($token)
     {
         $this->token = $token;
+
+        return $this;
     }
 
     /**
@@ -270,10 +318,14 @@ class Job
 
     /**
      * @param string $type
+     *
+     * @return $this
      */
     public function setType($type)
     {
         $this->type = $type;
+
+        return $this;
     }
 
     /**
@@ -286,10 +338,14 @@ class Job
 
     /**
      * @param string $url
+     *
+     * @return $this
      */
     public function setUrl($url)
     {
         $this->url = $url;
+
+        return $this;
     }
 
     /**
