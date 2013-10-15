@@ -52,7 +52,7 @@ class JobController extends Controller
         if ($form->isValid()) {
             $this->get('jobeet.finder.use_case.create_job')->execute($dto);
 
-            return $this->redirect($this->generateUrl('job_show', array('id' => $dto->getId())));
+            return $this->redirect($this->generateUrl('job_show', array('token' => $dto->getToken())));
         }
 
         return array(
@@ -99,21 +99,21 @@ class JobController extends Controller
     /**
      * Finds and displays a Job\Job entity.
      *
-     * @Route("/{id}", name="job_show")
+     * @Route("/{token}", name="job_show")
      * @Method("GET")
      * @Template()
      */
-    public function showAction($id)
+    public function showAction($token)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('JobeetFinderBundle:Job\Job')->find($id);
+        $entity = $em->getRepository('JobeetFinderBundle:Job\Job')->findOneByToken($token);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Job\Job entity.');
         }
 
-        $deleteForm = $this->createDeleteForm($id);
+        $deleteForm = $this->createDeleteForm($token);
 
         return array(
             'entity'      => $entity,

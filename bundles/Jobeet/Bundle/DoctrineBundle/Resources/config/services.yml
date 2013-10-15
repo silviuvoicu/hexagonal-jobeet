@@ -1,0 +1,7 @@
+parameters:
+#    jobeet_doctrine.example.class: Jobeet\Bundle\DoctrineBundle\Example
+
+services:
+#    jobeet_doctrine.example:
+#        class: %jobeet_doctrine.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]
