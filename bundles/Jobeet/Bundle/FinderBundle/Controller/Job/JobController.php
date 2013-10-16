@@ -70,7 +70,7 @@ class JobController extends Controller
     */
     private function createCreateForm(Job $entity = null)
     {
-        $form = $this->createForm(new JobType(), $entity, array(
+        $form = $this->createForm('job', $entity, array(
             'action' => $this->generateUrl('job_create'),
             'method' => 'POST',
         ));

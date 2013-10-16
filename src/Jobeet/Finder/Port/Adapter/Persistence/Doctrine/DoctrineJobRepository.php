@@ -18,6 +18,5 @@ class DoctrineJobRepository extends EntityRepository implements JobRepository
     public function persist($job)
     {
         $this->getEntityManager()->persist($job);
-        $this->getEntityManager()->flush();
     }
 }

@@ -17,7 +17,7 @@ class EntityManagerFlusher
     public function onTerminate()
     {
         array_map(
-            function($em) {
+            function(EntityManager $em) {
                 $em->flush();
             },
             $this->entityManagers

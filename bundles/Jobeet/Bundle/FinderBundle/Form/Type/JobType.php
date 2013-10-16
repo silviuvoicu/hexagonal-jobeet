@@ -1,19 +1,43 @@
 <?php
 
-namespace Jobeet\Bundle\FinderBundle\Form\Job;
+namespace Jobeet\Bundle\FinderBundle\Form\Type;
 
+use Jobeet\Bundle\FinderBundle\Form\Transformer\CategoryToNameTransformer;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class JobType extends AbstractType
 {
-        /**
+    /**
+     * @var CategoryToNameTransformer
+     */
+    private $categoryToNameTransformer;
+
+    /**
+     * Class constructor
+     *
+     * @param CategoryToNameTransformer $categoryToNameTransformer
+     */
+    public function __construct($categoryToNameTransformer)
+    {
+        $this->categoryToNameTransformer = $categoryToNameTransformer;
+    }
+
+    /**
      * @param FormBuilderInterface $builder
      * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $categoryFieldBuilder = $builder->create('category', 'entity', [
+            'class'         => 'JobeetFinderBundle:Category\Category',
+            'property'      => 'name',
+            'empty_value'   => 'Choose a category'
+        ]);
+
+        $categoryFieldBuilder->addModelTransformer($this->categoryToNameTransformer);
+
         $builder
             ->add('type')
             ->add('company')
@@ -28,12 +52,9 @@ class JobType extends AbstractType
             ->add('is_activated', 'checkbox')
             ->add('email', 'email')
             ->add('expires_at', 'datetime')
-            ->add('category', 'entity', [
-                'class'         => 'JobeetFinderBundle:Category\Category',
-                'property'      => 'name',
-                'empty_value'   => 'Choose a category'
-            ])
+            ->add($categoryFieldBuilder)
         ;
+
     }
     
     /**
@@ -51,6 +72,6 @@ class JobType extends AbstractType
      */
     public function getName()
     {
-        return 'jobeet_bundle_finderbundle_job_job';
+        return 'job';
     }
 }

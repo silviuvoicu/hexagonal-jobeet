@@ -14,11 +14,18 @@ class JobAssembler
     private $categoryAssembler;
 
     /**
-     * @param CategoryAssembler $categoryAssembler
+     * @var
      */
-    public function __construct($categoryAssembler)
+    private $jobRepository;
+
+    /**
+     * @param CategoryAssembler $categoryAssembler
+     * @param                   $jobRepository
+     */
+    public function __construct($categoryAssembler, $jobRepository)
     {
         $this->categoryAssembler = $categoryAssembler;
+        $this->jobRepository = $jobRepository;
     }
 
     /**
@@ -30,6 +37,10 @@ class JobAssembler
      */
     public function assemble($jobDto)
     {
+        if (null !== $jobDto->getId()) {
+            return $this->jobRepository->find($jobDto->getId());
+        }
+
         $job = new JobEntity(
             $this->categoryAssembler->assemble($jobDto->getCategory()),
             $jobDto->getCompany(),

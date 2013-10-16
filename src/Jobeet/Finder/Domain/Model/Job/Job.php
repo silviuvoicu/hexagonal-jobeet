@@ -122,20 +122,20 @@ class Job extends AssertionConcern
         $this->assertNotEmpty($type, 'The provided job type is empty');
         $this->assertNotEmpty($logo, 'The provided logo is empty');
 
-        $this->category = $category;
-        $this->company = $company;
-        $this->description = $description;
-        $this->email = new EmailAddress($email);
-        $this->expires_at = $expiresAt;
-        $this->how_to_apply = $howToApply;
-        $this->is_public = $isPublic;
-        $this->is_activated = $isActivated;
-        $this->location = $location;
-        $this->type = $type;
-        $this->logo = $logo;
-        $this->url = $url;
-        $this->position = $position;
-        $this->token = $token;
+        $this->category         = $category;
+        $this->company          = $company;
+        $this->description      = $description;
+        $this->email            = new EmailAddress($email);
+        $this->expires_at       = $expiresAt;
+        $this->how_to_apply     = $howToApply;
+        $this->is_public        = $isPublic;
+        $this->is_activated     = $isActivated;
+        $this->location         = $location;
+        $this->type             = $type;
+        $this->logo             = $logo;
+        $this->url              = $url;
+        $this->position         = $position;
+        $this->token            = $token;
     }
 
     /**
@@ -446,10 +446,11 @@ class Job extends AssertionConcern
     /**
      * Set category
      *
-     * @param \Jobeet\Finder\Domain\Model\Category\Category $category
+     * @param Category $category
+     *
      * @return Job
      */
-    public function setCategory(\Jobeet\Finder\Domain\Model\Category\Category $category = null)
+    public function setCategory(Category $category = null)
     {
         $this->category = $category;
     

@@ -3,6 +3,7 @@
 namespace Jobeet\Finder\Application\UseCase;
 
 use Jobeet\Finder\Application\UseCase\Dto\Job\Job as JobDto;
+use Jobeet\Finder\Application\UseCase\Dto\Job\JobAssembler;
 use Jobeet\Finder\Domain\Model\Job\Job;
 use Jobeet\Finder\Domain\Model\Job\JobRepository;
 
@@ -14,11 +15,18 @@ class CreateJob
     private $jobRepository;
 
     /**
-     * @param JobRepository $jobRepository
+     * @var JobAssembler
      */
-    public function __construct($jobRepository)
+    private $jobAssembler;
+
+    /**
+     * @param JobRepository $jobRepository
+     * @param JobAssembler   $jobAssembler
+     */
+    public function __construct($jobRepository, $jobAssembler)
     {
         $this->jobRepository = $jobRepository;
+        $this->jobAssembler = $jobAssembler;
     }
 
     /**
@@ -30,22 +38,7 @@ class CreateJob
      */
     public function execute(JobDto $jobDto)
     {
-        $job = new Job(
-            $jobDto->getCategory(),
-            $jobDto->getCompany(),
-            $jobDto->getDescription(),
-            $jobDto->getEmail(),
-            $jobDto->getExpiresAt(),
-            $jobDto->getHowToApply(),
-            $jobDto->getLocation(),
-            $jobDto->getType(),
-            $jobDto->getLogo(),
-            $jobDto->getUrl(),
-            $jobDto->getPosition(),
-            $jobDto->getIsPublic(),
-            $jobDto->getIsActivated(),
-            $jobDto->getToken()
-        );
+        $job = $this->jobAssembler->assemble($jobDto);
 
         $this->jobRepository->persist($job);
     }

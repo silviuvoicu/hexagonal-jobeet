@@ -1,7 +1,12 @@
 parameters:
     doctrine.repository.abstract.class: Doctrine\ORM\EntityRepository
     jobeet.finder.job_repository.doctrine.class: Jobeet\Finder\Port\Adapter\Persistence\Doctrine\DoctrineJobRepository
+    jobeet.finder.category_repository.doctrine.class: Jobeet\Finder\Port\Adapter\Persistence\Doctrine\DoctrineCategoryRepository
     jobeet.finder.use_case.create_job.class: Jobeet\Finder\Application\UseCase\CreateJob
+    jobeet_finder.form.transformer.category_to_name.class: Jobeet\Bundle\FinderBundle\Form\Transformer\CategoryToNameTransformer
+    jobeet_finder.form.type.job_type.class: Jobeet\Bundle\FinderBundle\Form\Type\JobType
+    jobeet.finder.use_case.dto.category_assembler.class: Jobeet\Finder\Application\UseCase\Dto\Category\CategoryAssembler
+    jobeet.finder.use_case.dto.job_assembler.class: Jobeet\Finder\Application\UseCase\Dto\Job\JobAssembler
 
 services:
     doctrine.repository.abstract:
@@ -18,6 +23,32 @@ services:
     jobeet.finder.job_repository:
         alias: jobeet.finder.job_repository.doctrine
 
+    jobeet.finder.category_repository.doctrine:
+        class: "%jobeet.finder.category_repository.doctrine.class%"
+        parent: doctrine.repository.abstract
+        arguments: ['JobeetFinderBundle:Category\Category']
+
+    jobeet.finder.category_repository:
+        alias: jobeet.finder.category_repository.doctrine
+
+    jobeet.finder.use_case.dto.category_assembler:
+        class: %jobeet.finder.use_case.dto.category_assembler.class%
+        arguments: [@jobeet.finder.category_repository]
+
+    jobeet.finder.use_case.dto.job_assembler:
+        class: %jobeet.finder.use_case.dto.job_assembler.class%
+        arguments: [@jobeet.finder.use_case.dto.category_assembler, @jobeet.finder.job_repository]
+
     jobeet.finder.use_case.create_job:
         class: "%jobeet.finder.use_case.create_job.class%"
-        arguments: [@jobeet.finder.job_repository]
+        arguments: [@jobeet.finder.job_repository, @jobeet.finder.use_case.dto.job_assembler]
+
+    jobeet_finder.form.transformer.category_to_name:
+        class: "%jobeet_finder.form.transformer.category_to_name.class%"
+        arguments: [@jobeet.finder.category_repository]
+
+    jobeet_finder.form.type.job_type:
+        class: %jobeet_finder.form.type.job_type.class%
+        arguments: [@jobeet_finder.form.transformer.category_to_name]
+        tags:
+            - { name: form.type, alias: job }

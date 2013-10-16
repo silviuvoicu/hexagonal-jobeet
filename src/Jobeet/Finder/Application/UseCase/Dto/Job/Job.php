@@ -3,9 +3,15 @@
 namespace Jobeet\Finder\Application\UseCase\Dto\Job;
 
 use DateTime;
+use Jobeet\Finder\Application\UseCase\Dto\Category\Category;
 
 class Job
 {
+    /**
+     * @var int
+     */
+    private $id;
+
     /**
      * @var Category
      */
@@ -75,6 +81,22 @@ class Job
      * @var string
      */
     private $token;
+
+    /**
+     * @param int $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
+    /**
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
 
     /**
      * @param Category $category
