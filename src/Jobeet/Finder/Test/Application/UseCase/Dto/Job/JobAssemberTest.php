@@ -45,7 +45,9 @@ class JobAssemberTest extends PHPUnit_Framework_TestCase
             ->setLocation('test')
         ;
 
-        $assembler = new JobAssembler($categoryAssembler);
+        $jobRepository = Mockery::mock('Jobeet\Finder\Domain\Model\Job\JobRepository');
+
+        $assembler = new JobAssembler($categoryAssembler, $jobRepository);
         $job = $assembler->assemble($jobDto);
 
         $this->assertInstanceOf('\Jobeet\Finder\Domain\Model\Job\Job', $job);

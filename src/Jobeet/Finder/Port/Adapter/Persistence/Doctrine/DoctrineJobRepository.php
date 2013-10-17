@@ -6,7 +6,7 @@ use Doctrine\ORM\EntityRepository;
 use Jobeet\Finder\Domain\Model\Job\Job;
 use Jobeet\Finder\Domain\Model\Job\JobRepository;
 
-class DoctrineJobRepository extends EntityRepository implements JobRepository
+class DoctrineJobRepository extends EntityRepository
 {
     /**
      * Persist a Job to an specialized persistence engine

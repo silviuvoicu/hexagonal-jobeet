@@ -5,6 +5,7 @@ namespace Jobeet\Finder\Test\Application\UseCase;
 use Jobeet\Finder\Application\UseCase\CreateJob;
 use Jobeet\Finder\Application\UseCase\Dto\Category\Category;
 use Jobeet\Finder\Application\UseCase\Dto\Job\Job;
+use Mockery;
 use PHPUnit_Framework_TestCase;
 
 class CreateJobTest extends PHPUnit_Framework_TestCase
@@ -21,7 +22,10 @@ class CreateJobTest extends PHPUnit_Framework_TestCase
             ->with($this->isInstanceOf('\Jobeet\Finder\Domain\Model\Job\Job'))
         ;
 
-        $sut = new CreateJob($jobRepository);
+        $jobAssembler = Mockery::mock('\Jobeet\Finder\Application\UseCase\Dto\Job\JobAssembler');
+        $jobAssembler->shouldReceive('assemble')->with(Mockery::type('\Jobeet\Finder\Application\UseCase\Dto\Job\Job'))->andReturn(Mockery::mock('\Jobeet\Finder\Domain\Model\Job\Job'));
+
+        $sut = new CreateJob($jobRepository, $jobAssembler);
 
         $category = new Category();
         $category->setName('test');

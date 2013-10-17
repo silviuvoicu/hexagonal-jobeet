@@ -4,6 +4,7 @@ namespace Jobeet\Finder\Test\Application\UseCase\Dto;
 
 use Jobeet\Finder\Application\UseCase\Dto\Category\Category as CategoryDto;
 use Jobeet\Finder\Application\UseCase\Dto\Category\CategoryAssembler;
+use Mockery;
 use PHPUnit_Framework_TestCase;
 
 class CategoryAssemberTest extends PHPUnit_Framework_TestCase
@@ -18,7 +19,9 @@ class CategoryAssemberTest extends PHPUnit_Framework_TestCase
             ->setName('test')
         ;
 
-        $assembler = new CategoryAssembler();
+        $categoryRepository = Mockery::mock('\Jobeet\Finder\Domain\Model\Category\CategoryRepository');
+
+        $assembler = new CategoryAssembler($categoryRepository);
         $category = $assembler->assemble($categoryDto);
 
         $this->assertInstanceOf('\Jobeet\Finder\Domain\Model\Category\Category', $category);
