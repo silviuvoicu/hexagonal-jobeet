@@ -54,7 +54,6 @@ class JobType extends AbstractType
             ->add('expires_at', 'datetime')
             ->add($categoryFieldBuilder)
         ;
-
     }
     
     /**
