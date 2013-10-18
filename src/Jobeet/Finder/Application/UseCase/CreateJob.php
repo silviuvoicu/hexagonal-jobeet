@@ -5,7 +5,6 @@ namespace Jobeet\Finder\Application\UseCase;
 use Jobeet\Finder\Application\UseCase\Dto\Job\Job as JobDto;
 use Jobeet\Finder\Application\UseCase\Dto\Job\JobAssembler;
 use Jobeet\Finder\Domain\Model\Job\Job;
-use Jobeet\Finder\Domain\Model\Job\JobRepository;
 
 class CreateJob
 {

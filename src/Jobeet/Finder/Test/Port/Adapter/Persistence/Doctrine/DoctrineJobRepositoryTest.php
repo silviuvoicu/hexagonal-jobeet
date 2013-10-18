@@ -2,7 +2,6 @@
 
 namespace Jobeet\Finder\Test\Port\Adapter\Persistence\Doctrine;
 
-use Jobeet\Finder\Domain\Model\Job\Job;
 use Jobeet\Finder\Port\Adapter\Persistence\Doctrine\DoctrineJobRepository;
 use Mockery;
 use PHPUnit_Framework_TestCase;
