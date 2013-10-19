@@ -22,8 +22,6 @@ class AppKernel extends Kernel
 
             // Application bundles
             new Jobeet\Bundle\FinderBundle\JobeetFinderBundle(),
-            // new Emagister\Bundle\DoctrineOrmBundle\EmagisterDoctrineOrmBundle(),
-            new Jobeet\Bundle\DoctrineBundle\JobeetDoctrineBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

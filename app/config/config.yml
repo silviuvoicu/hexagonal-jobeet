@@ -51,9 +51,6 @@ doctrine:
                         prefix:               Jobeet\Finder\Domain\Model
                         is_bundle:            true
 
-jobeet_doctrine:
-    flush_entity_managers_on_terminate: true
-
 # Swiftmailer Configuration
 swiftmailer:
     transport: %mailer_transport%
