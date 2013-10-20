@@ -15,5 +15,6 @@ class DoctrineCategoryRepository extends EntityRepository
     public function persist($category)
     {
         $this->getEntityManager()->persist($category);
+        $this->getEntityManager()->flush();
     }
 }

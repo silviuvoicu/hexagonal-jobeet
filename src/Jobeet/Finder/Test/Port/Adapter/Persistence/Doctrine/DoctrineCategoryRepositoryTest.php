@@ -15,6 +15,7 @@ class DoctrineCategoryRepositoryTest extends PHPUnit_Framework_TestCase
     {
         $entityManager = Mockery::mock('Doctrine\ORM\EntityManager');
         $entityManager->shouldReceive('persist')->with(Mockery::type('Jobeet\Finder\Domain\Model\Category\Category'))->once();
+        $entityManager->shouldReceive('flush')->once();
 
         $classMetadata = Mockery::mock('Doctrine\ORM\Mapping\ClassMetadata');
 
