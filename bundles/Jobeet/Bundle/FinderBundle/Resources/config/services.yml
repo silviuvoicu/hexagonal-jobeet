@@ -6,8 +6,8 @@ parameters:
     jobeet.finder.application.use_case.create_job_facade.class: Jobeet\Finder\Application\UseCase\CreateJobFacade
     jobeet_finder.form.transformer.category_to_name.class: Jobeet\Bundle\FinderBundle\Form\Transformer\CategoryToNameTransformer
     jobeet_finder.form.type.job_type.class: Jobeet\Bundle\FinderBundle\Form\Type\JobType
-    jobeet.finder.use_case.application.dto.category_assembler.class: Jobeet\Finder\Application\UseCase\Dto\Category\CategoryAssembler
-    jobeet.finder.use_case.application.dto.job_assembler.class: Jobeet\Finder\Application\UseCase\Dto\Job\JobAssembler
+    jobeet.finder.application.use_case.dto.category_assembler.class: Jobeet\Finder\Application\UseCase\Dto\Category\CategoryAssembler
+    jobeet.finder.application.use_case.dto.job_assembler.class: Jobeet\Finder\Application\UseCase\Dto\Job\JobAssembler
     jobeet.common.port.adapter.doctrine.doctrine_session.class: Jobeet\Common\Port\Adapter\Doctrine\DoctrineSession
 
 services:
@@ -46,11 +46,11 @@ services:
 
     jobeet.finder.application.use_case.create_job_facade:
         class: "%jobeet.finder.application.use_case.create_job.class%"
-        arguments: [@jobeet.finder.application.use_case.create_job, @session]
+        arguments: [@jobeet.finder.application.use_case.create_job, @default_session]
 
     jobeet.finder.application.use_case.create_job:
         class: "%jobeet.finder.application.use_case.create_job.class%"
-        arguments: [@jobeet.finder.job_repository, @jobeet.finder.use_case.dto.job_assembler]
+        arguments: [@jobeet.finder.job_repository, @jobeet.finder.application.use_case.dto.job_assembler]
 
     jobeet_finder.form.transformer.category_to_name:
         class: "%jobeet_finder.form.transformer.category_to_name.class%"
@@ -61,9 +61,6 @@ services:
         arguments: [@jobeet_finder.form.transformer.category_to_name]
         tags:
             - { name: form.type, alias: job }
-
-    session:
-        alias: default_session
 
     default_session:
         alias: jobeet.common.port.adapter.doctrine.doctrine_session
