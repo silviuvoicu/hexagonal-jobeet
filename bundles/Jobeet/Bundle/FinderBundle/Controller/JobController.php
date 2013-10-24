@@ -1,6 +1,6 @@
 <?php
 
-namespace Jobeet\Bundle\FinderBundle\Controller\Job;
+namespace Jobeet\Bundle\FinderBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -8,7 +8,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Jobeet\Finder\Application\UseCase\Dto\Job\Job;
-use Jobeet\Bundle\FinderBundle\Form\Job\JobType;
+use Jobeet\Bundle\FinderBundle\Form\Type\JobType;
 
 /**
  * Job\Job controller.
@@ -17,7 +17,6 @@ use Jobeet\Bundle\FinderBundle\Form\Job\JobType;
  */
 class JobController extends Controller
 {
-
     /**
      * Lists all Job\Job entities.
      *
