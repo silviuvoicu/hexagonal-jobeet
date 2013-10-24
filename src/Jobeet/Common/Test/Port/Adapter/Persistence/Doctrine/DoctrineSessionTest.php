@@ -1,8 +1,8 @@
 <?php
 
-namespace Jobeet\Common\Test\Port\Adapter\Doctrine;
+namespace Jobeet\Common\Test\Port\Adapter\Persistence\Doctrine;
 
-use Jobeet\Common\Port\Adapter\Doctrine\DoctrineSession;
+use Jobeet\Common\Port\Adapter\Persistence\Doctrine\DoctrineSession;
 use Mockery;
 use Mockery\MockInterface;
 use PHPUnit_Framework_TestCase;
@@ -19,11 +19,18 @@ class DoctrineSessionTest extends PHPUnit_Framework_TestCase
      */
     private $session;
 
+    /**
+     * @var MockInterface
+     */
+    private $entityManager;
+
     protected function setUp()
     {
         $this->connection = Mockery::mock('Doctrine\DBAL\Connection');
+        $this->entityManager = Mockery::mock('Doctrine\ORM\EntityManager');
+        $this->entityManager->shouldReceive('getConnection')->andReturn($this->connection);
 
-        $this->session = new DoctrineSession($this->connection);
+        $this->session = new DoctrineSession($this->entityManager);
     }
 
     protected function tearDown()
