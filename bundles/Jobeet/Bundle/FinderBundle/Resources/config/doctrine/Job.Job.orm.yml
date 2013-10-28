@@ -70,6 +70,18 @@ Jobeet\Finder\Domain\Model\Job\Job:
             type: datetime
             nullable: true
 
+        created_at:
+            type: datetime
+            gedmo:
+                timestampable:
+                    on: create
+
+        updated_at:
+            type: datetime
+            gedmo:
+                timestampable:
+                    on: update
+
     manyToOne:
         category:
           targetEntity: Jobeet\Finder\Domain\Model\Category\Category

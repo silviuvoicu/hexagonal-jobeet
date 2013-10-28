@@ -15,7 +15,7 @@ class ListJobsTest extends PHPUnit_Framework_TestCase
     public function it_should_return_no_jobs_when_there_are_no_jobs()
     {
         $jobRepository = Mockery::mock('JobRepository');
-        $jobRepository->shouldReceive('findAll')->andReturn([]);
+        $jobRepository->shouldReceive('activeJobs')->andReturn([]);
 
         $listJobs = new ListJobs($jobRepository);
 
@@ -33,7 +33,7 @@ class ListJobsTest extends PHPUnit_Framework_TestCase
         ];
 
         $jobRepository = Mockery::mock('JobRepository');
-        $jobRepository->shouldReceive('findAll')->andReturn($jobList);
+        $jobRepository->shouldReceive('activeJobs')->andReturn($jobList);
 
         $listJobs = new ListJobs($jobRepository);
 

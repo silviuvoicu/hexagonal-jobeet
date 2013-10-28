@@ -10,17 +10,12 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Jobeet\Finder\Application\UseCase\Dto\Job\Job;
 use Jobeet\Bundle\FinderBundle\Form\Type\JobType;
 
-/**
- * Job\Job controller.
- *
- * @Route("/job")
- */
 class JobController extends Controller
 {
     /**
      * Lists all Job\Job entities.
      *
-     * @Route("/", name="job")
+     * @Route("/", name="homepage")
      * @Method("GET")
      * @Template()
      */
@@ -57,15 +52,15 @@ class JobController extends Controller
     }
 
     /**
-    * Creates a form to create a Job\Job entity.
-    *
-    * @param Job $entity The entity
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
-    private function createCreateForm(Job $entity = null)
+     * Creates a form to create a Job\Job entity.
+     *
+     * @param Job $job The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createCreateForm(Job $job = null)
     {
-        $form = $this->createForm('job', $entity, array(
+        $form = $this->createForm('job', $job, array(
             'action' => $this->generateUrl('job_create'),
             'method' => 'POST',
         ));
@@ -94,15 +89,13 @@ class JobController extends Controller
     /**
      * Finds and displays a Job\Job entity.
      *
-     * @Route("/{token}", name="job_show")
+     * @Route("/job/{company}/{location}/{id}/{position}", name="job_show", requirements={ "id": "\d+" })
      * @Method("GET")
      * @Template()
      */
-    public function showAction($token)
+    public function showAction($id)
     {
-        $em = $this->getDoctrine()->getManager();
-
-        $job = $em->getRepository('JobeetFinderBundle:Job\Job')->findOneByToken($token);
+        $job = $this->get('jobeet.finder.application.use_case.show_job')->execute($id);
 
         if (!$job) {
             throw $this->createNotFoundException('Unable to find Job\Job entity.');
@@ -149,7 +142,7 @@ class JobController extends Controller
     */
     private function createEditForm(Job $entity)
     {
-        $form = $this->createForm(new JobType(), $entity, array(
+        $form = $this->createForm('job', $entity, array(
             'action' => $this->generateUrl('job_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));

@@ -19,6 +19,8 @@ class AppKernel extends Kernel
             new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),
             new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
+            new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
+            new Zenstruck\SlugifyBundle\ZenstruckSlugifyBundle(),
 
             // Application bundles
             new Jobeet\Bundle\FinderBundle\JobeetFinderBundle(),

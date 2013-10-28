@@ -2,16 +2,11 @@
 
 namespace Jobeet\Finder\Application\UseCase;
 
-class ListJobs
+class ShowJob
 {
-    /**
-     * @var JobRepository
-     */
     private $jobRepository;
 
     /**
-     * Class constructor
-     *
      * @param JobRepository $jobRepository
      */
     public function __construct($jobRepository)
@@ -19,8 +14,8 @@ class ListJobs
         $this->jobRepository = $jobRepository;
     }
 
-    public function execute()
+    public function execute($id)
     {
-        return $this->jobRepository->activeJobs();
+        return $this->jobRepository->find($id);
     }
 }
