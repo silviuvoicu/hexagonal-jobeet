@@ -1,80 +1,47 @@
-{% extends '::base.html.twig' %}
+{% extends 'JobeetFinderBundle::layout.html.twig' %}
 
-{% block body -%}
-    <h1>Job\Job</h1>
+{% block title %}{{ "%s is looking for a %s"|format(job.company, job.position) }}{% endblock %}
 
-    <table class="record_properties">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ entity.id }}</td>
-            </tr>
-            <tr>
-                <th>Type</th>
-                <td>{{ entity.type }}</td>
-            </tr>
-            <tr>
-                <th>Company</th>
-                <td>{{ entity.company }}</td>
-            </tr>
-            <tr>
-                <th>Logo</th>
-                <td>{{ entity.logo }}</td>
-            </tr>
-            <tr>
-                <th>Url</th>
-                <td>{{ entity.url }}</td>
-            </tr>
-            <tr>
-                <th>Position</th>
-                <td>{{ entity.position }}</td>
-            </tr>
-            <tr>
-                <th>Location</th>
-                <td>{{ entity.location }}</td>
-            </tr>
-            <tr>
-                <th>Description</th>
-                <td>{{ entity.description }}</td>
-            </tr>
-            <tr>
-                <th>How_to_apply</th>
-                <td>{{ entity.howtoapply }}</td>
-            </tr>
-            <tr>
-                <th>Token</th>
-                <td>{{ entity.token }}</td>
-            </tr>
-            <tr>
-                <th>Is_public</th>
-                <td>{{ entity.ispublic }}</td>
-            </tr>
-            <tr>
-                <th>Is_activated</th>
-                <td>{{ entity.isactivated }}</td>
-            </tr>
-            <tr>
-                <th>Email</th>
-                <td>{{ entity.email }}</td>
-            </tr>
-            <tr>
-                <th>Expires_at</th>
-                <td>{{ entity.expiresat|date('Y-m-d H:i:s') }}</td>
-            </tr>
-        </tbody>
-    </table>
+{% block stylesheets %}
+    {{ parent() }}
+    {% stylesheets 'css/job.css' %}
+    <link rel="stylesheet" type="text/css" href="{{ asset_url }}" />
+    {% endstylesheets %}
+{% endblock %}
 
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('job') }}">
-            Back to the list
+{% block content -%}
+<div id="job">
+    <h1>{{ job.company }}</h1>
+    <h2>{{ job.location }}</h2>
+    <h3>
+        {{ job.position }}
+        <small> - {{ job.type }}</small>
+    </h3>
+
+    {% if job.logo %}
+    <div class="logo">
+        <a href="{{ job.url }}">
+            <img src="/uploads/jobs/{{ job.logo }}" alt="{{ job.company }} logo" />
         </a>
-    </li>
-    <li>
-        <a href="{{ path('job_edit', { 'id': entity.id }) }}">
+    </div>
+    {% endif %}
+
+    <div class="description">
+        <p>{{ job.description }}</p>
+    </div>
+
+    <h4>How to apply?</h4>
+
+    <p class="how_to_apply">{{ job.howToApply }}</p>
+
+    <div class="meta">
+        <small>posted on {{ job.createdAt|date('m/d/Y') }}</small>
+    </div>
+
+    <div style="padding: 20px 0">
+        <a href="{{ path('job_edit', { 'token': job.token }) }}">
             Edit
         </a>
-    </li>
-    <li>{{ form(delete_form) }}</li>
-</ul>
+    </div>
+</div>
 {% endblock %}

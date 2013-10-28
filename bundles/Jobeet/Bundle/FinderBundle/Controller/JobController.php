@@ -26,12 +26,8 @@ class JobController extends Controller
      */
     public function indexAction()
     {
-        $em = $this->getDoctrine()->getManager();
-
-        $entities = $em->getRepository('JobeetFinderBundle:Job\Job')->findAll();
-
         return array(
-            'entities' => $entities,
+            'jobs' => $this->get('jobeet.finder.application.use_case.list_jobs')->execute()
         );
     }
 
@@ -106,39 +102,36 @@ class JobController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('JobeetFinderBundle:Job\Job')->findOneByToken($token);
+        $job = $em->getRepository('JobeetFinderBundle:Job\Job')->findOneByToken($token);
 
-        if (!$entity) {
+        if (!$job) {
             throw $this->createNotFoundException('Unable to find Job\Job entity.');
         }
 
-        $deleteForm = $this->createDeleteForm($token);
-
         return array(
-            'entity'      => $entity,
-            'delete_form' => $deleteForm->createView(),
+            'job' => $job
         );
     }
 
     /**
      * Displays a form to edit an existing Job\Job entity.
      *
-     * @Route("/{id}/edit", name="job_edit")
+     * @Route("/{token}/edit", name="job_edit")
      * @Method("GET")
      * @Template()
      */
-    public function editAction($id)
+    public function editAction($token)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('JobeetFinderBundle:Job\Job')->find($id);
+        $entity = $em->getRepository('JobeetFinderBundle:Job\Job')->findOneByToken($token);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Job\Job entity.');
         }
 
         $editForm = $this->createEditForm($entity);
-        $deleteForm = $this->createDeleteForm($id);
+        $deleteForm = $this->createDeleteForm($token);
 
         return array(
             'entity'      => $entity,
