@@ -14,3 +14,9 @@ Jobeet\Finder\Domain\Model\Category\Category:
             length: 255
             nullable: true
             unique: true
+
+    oneToMany:
+        jobs:
+            orderBy: { 'expires_at': 'DESC' }
+            targetEntity: Jobeet\Finder\Domain\Model\Job\Job
+            mappedBy: category

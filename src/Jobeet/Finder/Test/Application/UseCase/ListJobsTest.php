@@ -4,6 +4,7 @@ namespace Jobeet\Finder\Test\Application\UseCase;
 
 use Jobeet\Finder\Application\UseCase\Dto\Job\Job;
 use Jobeet\Finder\Application\UseCase\ListJobs;
+use Jobeet\Finder\Domain\Model\Category\Category;
 use Mockery;
 use PHPUnit_Framework_TestCase;
 
@@ -14,10 +15,10 @@ class ListJobsTest extends PHPUnit_Framework_TestCase
      */
     public function it_should_return_no_jobs_when_there_are_no_jobs()
     {
-        $jobRepository = Mockery::mock('JobRepository');
-        $jobRepository->shouldReceive('activeJobs')->andReturn([]);
+        $categoryRepository = Mockery::mock('CategoryRepository');
+        $categoryRepository->shouldReceive('findAll')->andReturn([]);
 
-        $listJobs = new ListJobs($jobRepository);
+        $listJobs = new ListJobs($categoryRepository);
 
         $this->assertEmpty($listJobs->execute());
     }
@@ -27,16 +28,16 @@ class ListJobsTest extends PHPUnit_Framework_TestCase
      */
     public function it_should_return_a_list_of_jobs()
     {
-        $jobList = [
-            new Job(),
-            new Job()
+        $categoryList = [
+            new Category('test', []),
+            new Category('test2', [])
         ];
 
-        $jobRepository = Mockery::mock('JobRepository');
-        $jobRepository->shouldReceive('activeJobs')->andReturn($jobList);
+        $categoryRepository = Mockery::mock('CategoryRepository');
+        $categoryRepository->shouldReceive('findAll')->andReturn($categoryList);
 
-        $listJobs = new ListJobs($jobRepository);
+        $listJobs = new ListJobs($categoryRepository);
 
-        $this->assertEquals($jobList, $listJobs->execute());
+        $this->assertEquals($categoryList, $listJobs->execute());
     }
 }

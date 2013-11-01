@@ -60,7 +60,7 @@ services:
 
     jobeet.finder.application.use_case.list_jobs:
         class: "%jobeet.finder.application.use_case.list_jobs.class%"
-        arguments: [@jobeet.finder.job_repository]
+        arguments: [@jobeet.finder.category_repository]
 
     jobeet_finder.form.transformer.category_to_name:
         class: "%jobeet_finder.form.transformer.category_to_name.class%"

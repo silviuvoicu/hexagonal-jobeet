@@ -2,6 +2,7 @@
 
 namespace Jobeet\Bundle\FinderBundle\Controller;
 
+use Jobeet\Finder\Domain\Model\Job\ExpiredJobException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -22,7 +23,7 @@ class JobController extends Controller
     public function indexAction()
     {
         return array(
-            'jobs' => $this->get('jobeet.finder.application.use_case.list_jobs')->execute()
+            'categories' => $this->get('jobeet.finder.application.use_case.list_jobs')->execute()
         );
     }
 
@@ -95,7 +96,11 @@ class JobController extends Controller
      */
     public function showAction($id)
     {
-        $job = $this->get('jobeet.finder.application.use_case.show_job')->execute($id);
+        try {
+            $job = $this->get('jobeet.finder.application.use_case.show_job')->execute($id);
+        } catch (ExpiredJobException $e) {
+            $job = null;
+        }
 
         if (!$job) {
             throw $this->createNotFoundException('Unable to find Job\Job entity.');

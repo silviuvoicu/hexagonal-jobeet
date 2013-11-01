@@ -5,22 +5,22 @@ namespace Jobeet\Finder\Application\UseCase;
 class ListJobs
 {
     /**
-     * @var JobRepository
+     * @var CategoryRepository
      */
-    private $jobRepository;
+    private $categoryRepository;
 
     /**
      * Class constructor
      *
-     * @param JobRepository $jobRepository
+     * @param CategoryRepository $categoryRepository
      */
-    public function __construct($jobRepository)
+    public function __construct($categoryRepository)
     {
-        $this->jobRepository = $jobRepository;
+        $this->categoryRepository = $categoryRepository;
     }
 
     public function execute()
     {
-        return $this->jobRepository->activeJobs();
+        return $this->categoryRepository->findAll();
     }
 }

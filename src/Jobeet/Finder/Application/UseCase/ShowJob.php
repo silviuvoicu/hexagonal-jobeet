@@ -2,6 +2,8 @@
 
 namespace Jobeet\Finder\Application\UseCase;
 
+use Jobeet\Finder\Domain\Model\Job\ExpiredJobException;
+
 class ShowJob
 {
     private $jobRepository;
@@ -16,6 +18,12 @@ class ShowJob
 
     public function execute($id)
     {
-        return $this->jobRepository->find($id);
+        $job = $this->jobRepository->find($id);
+
+        if (null !== $job && $job->hasExpired()) {
+            throw new ExpiredJobException($job);
+        }
+
+        return $job;
     }
 }

@@ -101,18 +101,18 @@ class Job extends AssertionConcern
      * @param string   $company
      * @param string   $description
      * @param string   $email
-     * @param DateTime $expiresAt
      * @param string   $howToApply
      * @param string   $location
      * @param string   $type
      * @param string   $logo
      * @param string   $url
+     * @param DateTime $expiresAt
      * @param string   $position
      * @param bool     $isPublic
      * @param bool     $isActivated
      * @param string   $token
      */
-    public function __construct($category, $company, $description, $email, $expiresAt, $howToApply, $location, $type, $logo, $url, $position = null, $isPublic = true, $isActivated = false, $token = null)
+    public function __construct($category, $company, $description, $email, $howToApply, $location, $type, $logo, $url, $expiresAt = null, $position = null, $isPublic = true, $isActivated = false, $token = null)
     {
         $this->assertNotEmpty($company, 'The provided company name is empty');
         $this->assertNotEmpty($description, 'The provided description is empty');
@@ -126,7 +126,13 @@ class Job extends AssertionConcern
         $this->company          = $company;
         $this->description      = $description;
         $this->email            = new EmailAddress($email);
+
+        if (null === $expiresAt) {
+            $expiresAt = (new DateTime())->modify('+30 day');
+        }
+
         $this->expires_at       = $expiresAt;
+
         $this->how_to_apply     = $howToApply;
         $this->is_public        = $isPublic;
         $this->is_activated     = $isActivated;
@@ -455,5 +461,10 @@ class Job extends AssertionConcern
         $this->category = $category;
     
         return $this;
+    }
+
+    public function hasExpired()
+    {
+        return $this->expires_at < new DateTime();
     }
 }
