@@ -6,6 +6,7 @@ parameters:
     jobeet.finder.application.use_case.list_jobs.class: Jobeet\Finder\Application\UseCase\ListJobs
     jobeet.finder.application.use_case.show_job.class: Jobeet\Finder\Application\UseCase\ShowJob
     jobeet.finder.application.use_case.create_job_facade.class: Jobeet\Finder\Application\UseCase\CreateJobFacade
+    jobeet.finder.application.use_case.show_category.class: Jobeet\Finder\Application\UseCase\ShowCategory
     jobeet_finder.form.transformer.category_to_name.class: Jobeet\Bundle\FinderBundle\Form\Transformer\CategoryToNameTransformer
     jobeet_finder.form.type.job_type.class: Jobeet\Bundle\FinderBundle\Form\Type\JobType
     jobeet.finder.application.use_case.dto.category_assembler.class: Jobeet\Finder\Application\UseCase\Dto\Category\CategoryAssembler
@@ -78,3 +79,7 @@ services:
     jobeet.common.port.adapter.doctrine.doctrine_session:
         class: %jobeet.common.port.adapter.doctrine.doctrine_session.class%
         arguments: [@doctrine.dbal.default_connection]
+
+    jobeet.finder.application.use_case.show_category:
+        class: %jobeet.finder.application.use_case.show_category.class%
+        arguments: [@jobeet.finder.category_repository]

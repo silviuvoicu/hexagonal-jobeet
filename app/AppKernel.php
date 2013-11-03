@@ -21,6 +21,7 @@ class AppKernel extends Kernel
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
             new Zenstruck\SlugifyBundle\ZenstruckSlugifyBundle(),
+            new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
 
             // Application bundles
             new Jobeet\Bundle\FinderBundle\JobeetFinderBundle(),

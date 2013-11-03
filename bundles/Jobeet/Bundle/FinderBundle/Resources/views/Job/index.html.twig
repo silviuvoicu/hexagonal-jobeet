@@ -15,24 +15,16 @@
             <div class="feed">
                 <a href="">Feed</a>
             </div>
-            <h1>{{ category }}</h1>
+            <h1><a href="{{ path('category', { 'name': category.name|slugify }) }}">{{ category.name }}</a></h1>
         </div>
 
-        <table class="jobs">
-            <tbody>
-            {% for job in category.activeJobs %}
-                <tr class="{{ cycle('odd', 'even', loop.index) }}">
-                    <td class="location">{{ job.location }}</td>
-                    <td class="position">
-                        <a href="{{ path('job_show', { 'company': job.company|slugify, 'location': job.location|slugify, 'id': job.id, 'position': job.position|slugify }) }}">
-                            {{ job.position }}
-                        </a>
-                    </td>
-                    <td class="company">{{ job.company }}</td>
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
+        {{ include('JobeetFinderBundle:Job:jobs.html.twig', { 'jobs': category.activeJobs }) }}
+
+        {% if category.activeJobs|length > 10 %}
+        <div class="more_jobs">
+            and <a href="{{ path('category', { 'name': category.name|slugify }) }}">{{ category.activeJobs|length }}</a> more...
+        </div>
+        {% endif %}
     </div>
     {% endfor %}
 </div>

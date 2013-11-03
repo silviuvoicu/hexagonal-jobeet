@@ -109,7 +109,7 @@ class Category extends AssertionConcern
     {
         $activeJobs = [];
 
-        foreach ($this->jobs->slice(0, 10) as $job) {
+        foreach ($this->jobs as $job) {
             if (!$job->hasExpired()) {
                 $activeJobs[] = $job;
             }

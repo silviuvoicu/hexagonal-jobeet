@@ -1,0 +1,15 @@
+<table class="jobs">
+    <tbody>
+    {% for job in jobs|slice(0, 10) %}
+        <tr class="{{ cycle('odd', 'even', loop.index) }}">
+            <td class="location">{{ job.location }}</td>
+            <td class="position">
+                <a href="{{ path('job_show', { 'company': job.company|slugify, 'location': job.location|slugify, 'id': job.id, 'position': job.position|slugify }) }}">
+                    {{ job.position }}
+                </a>
+            </td>
+            <td class="company">{{ job.company }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

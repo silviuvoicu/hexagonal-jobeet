@@ -57,6 +57,32 @@ class LoadJobData extends AbstractFixture implements OrderedFixtureInterface
         $manager->flush();
 
         $this->addReference('expired_job', $expiredJob);
+
+        $category = $this->getReference('programming');
+
+        for ($i = 100; $i <= 130; $i++) {
+            $job = new Job(
+                $category,
+                'Company' . $i,
+                'Lorem ipsum dolor sit amet, consectetur adipisicing elit.',
+                'job@example.com',
+                'Send your resume to lorem.ipsum [at] company_' . $i . '.sit',
+                'Paris, France',
+                'full-time',
+                'sensio_labs.gif',
+                'http://sensio-labs.com',
+                (new DateTime())->modify('+30 day'),
+                'Web Developer',
+                true,
+                true,
+                'job_' . $i
+            );
+
+            $manager->persist($job);
+            $manager->flush();
+
+            $this->addReference('job_' . $i, $job);
+        }
     }
 
     /**
