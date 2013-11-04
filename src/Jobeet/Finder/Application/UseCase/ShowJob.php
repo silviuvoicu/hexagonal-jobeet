@@ -16,9 +16,9 @@ class ShowJob
         $this->jobRepository = $jobRepository;
     }
 
-    public function execute($id)
+    public function execute($token)
     {
-        $job = $this->jobRepository->find($id);
+        $job = $this->jobRepository->findOneByToken($token);
 
         if (null !== $job && $job->hasExpired()) {
             throw new ExpiredJobException($job);

@@ -1,0 +1,4 @@
+Jobeet\Finder\Application\UseCase\Dto\Job\Job:
+    properties:
+        email:
+            - Email: ~

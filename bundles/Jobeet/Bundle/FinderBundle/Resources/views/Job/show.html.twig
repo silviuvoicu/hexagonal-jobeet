@@ -10,6 +10,9 @@
 {% endblock %}
 
 {% block content -%}
+{% if app.request.query.get('token') == job.token %}
+{{ include('JobeetFinderBundle:Job:admin.html.twig', { 'job': job }) }}
+{% endif %}
 <div id="job">
     <h1>{{ job.company }}</h1>
     <h2>{{ job.location }}</h2>

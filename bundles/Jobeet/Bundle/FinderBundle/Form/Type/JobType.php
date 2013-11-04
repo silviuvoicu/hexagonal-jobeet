@@ -39,19 +39,26 @@ class JobType extends AbstractType
         $categoryFieldBuilder->addModelTransformer($this->categoryToNameTransformer);
 
         $builder
-            ->add('type')
+            ->add(
+                'type',
+                'choice',
+                [
+                    'choices' => [
+                        'full-time' => 'Full time',
+                        'part-time' => 'Part time',
+                        'freelance' => 'Freelance'
+                    ]
+                ]
+            )
             ->add('company')
-            ->add('logo')
+            ->add('logo', 'file')
             ->add('url', 'url')
             ->add('position')
             ->add('location')
             ->add('description')
-            ->add('how_to_apply')
-            ->add('token')
-            ->add('is_public', 'checkbox')
-            ->add('is_activated', 'checkbox')
+            ->add('how_to_apply', 'text', ['label' => 'How to apply?'])
+            ->add('is_public', 'checkbox', ['label' => 'Public?'])
             ->add('email', 'email')
-            ->add('expires_at', 'datetime')
             ->add($categoryFieldBuilder)
         ;
     }

@@ -74,7 +74,7 @@ class JobController extends Controller
     /**
      * Displays a form to create a new Job\Job entity.
      *
-     * @Route("/new", name="job_new")
+     * @Route("/job/new", name="job_new")
      * @Method("GET")
      * @Template()
      */
@@ -90,14 +90,14 @@ class JobController extends Controller
     /**
      * Finds and displays a Job\Job entity.
      *
-     * @Route("/job/{company}/{location}/{id}/{position}", name="job_show", requirements={ "id": "\d+" })
+     * @Route("/job/{company}/{location}/{token}/{position}", name="job_show", requirements={ "token": "\w+" })
      * @Method("GET")
      * @Template()
      */
-    public function showAction($id)
+    public function showAction($token)
     {
         try {
-            $job = $this->get('jobeet.finder.application.use_case.show_job')->execute($id);
+            $job = $this->get('jobeet.finder.application.use_case.show_job')->execute($token);
         } catch (ExpiredJobException $e) {
             $job = null;
         }

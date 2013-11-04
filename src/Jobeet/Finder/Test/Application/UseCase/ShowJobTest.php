@@ -18,7 +18,7 @@ class ShowJobTest extends PHPUnit_Framework_TestCase
     public function it_should_return_nothing_if_no_job_is_found_by_its_token()
     {
         $jobRepository = Mockery::mock('JobRepository');
-        $jobRepository->shouldReceive('find')->andReturn(null);
+        $jobRepository->shouldReceive('findOneByToken')->andReturn(null);
 
         $showJob = new ShowJob($jobRepository);
 
@@ -43,7 +43,7 @@ class ShowJobTest extends PHPUnit_Framework_TestCase
         );
 
         $jobRepository = Mockery::mock('JobRepository');
-        $jobRepository->shouldReceive('find')->andReturn($expected);
+        $jobRepository->shouldReceive('findOneByToken')->andReturn($expected);
 
         $showJob = new ShowJob($jobRepository);
 
@@ -69,7 +69,7 @@ class ShowJobTest extends PHPUnit_Framework_TestCase
         );
 
         $jobRepository = Mockery::mock('JobRepository');
-        $jobRepository->shouldReceive('find')->andReturn($expiredJob);
+        $jobRepository->shouldReceive('findOneByToken')->andReturn($expiredJob);
 
         $showJob = new ShowJob($jobRepository);
 

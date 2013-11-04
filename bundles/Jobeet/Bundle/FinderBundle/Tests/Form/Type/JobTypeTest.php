@@ -43,7 +43,7 @@ class JobTypeTest extends TypeTestCase
 
         $formData = [
             'category'      => $actualCategoryDto,
-            'type'          => 'test',
+            'type'          => 'full-time',
             'company'       => 'test',
             'logo'          => 'test',
             'url'           => 'http://test.com',
@@ -51,11 +51,8 @@ class JobTypeTest extends TypeTestCase
             'location'      => 'test',
             'description'   => 'test',
             'how_to_apply'  => 'test',
-            'token'         => 'test',
             'is_public'     => true,
-            'is_activated'  => true,
             'email'         => 'test@test.com',
-            'expires_at'    => (new DateTime())->format('Y-m-d')
         ];
 
         $type = new JobType(new CategoryToNameTransformer());
@@ -69,7 +66,7 @@ class JobTypeTest extends TypeTestCase
         $expected = new Job();
         $expected
             ->setCategory($expectedCategoryDto)
-            ->setType('test')
+            ->setType('full-time')
             ->setCompany('test')
             ->setLogo('test')
             ->setUrl('http://test.com')
@@ -77,9 +74,7 @@ class JobTypeTest extends TypeTestCase
             ->setLocation('test')
             ->setDescription('test')
             ->setHowToApply('test')
-            ->setToken('test')
             ->setIsPublic(true)
-            ->setIsActivated(true)
             ->setEmail('test@test.com')
         ;
 

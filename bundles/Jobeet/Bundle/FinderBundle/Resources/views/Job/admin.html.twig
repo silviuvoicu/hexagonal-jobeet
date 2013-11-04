@@ -1,0 +1,27 @@
+<div id="job_actions">
+    <h3>Admin</h3>
+    <ul>
+        {% if not job.is_activated %}
+        <li><a href="{{ path('job_edit', { 'token': job.token }) }}">Edit</a></li>
+        <li><a href="{{ path('job_edit', { 'token': job.token }) }}">Publish</a></li>
+        {% endif %}
+        <a href="{{ path('job_delete', { 'token': job.token }) }}">Delete</a>
+        {% if job.is_activated %}
+        <li<?php $job->expiresSoon() and print ' class="expires_soon"' ?>>
+        <?php if ($job->isExpired()): ?>
+        Expired
+        <?php else: ?>
+        Expires in <strong><?php echo $job->getDaysBeforeExpires() ?></strong> days
+        <?php endif ?>
+
+        <?php if ($job->expiresSoon()): ?>
+        - <a href="">Extend</a> for another <?php echo sfConfig::get('app_active_days') ?> days
+        <?php endif ?>
+        </li>
+        <?php else: ?>
+        <li>
+            [Bookmark this <?php echo link_to('URL', 'job_show', $job, true) ?> to manage this job in the future.]
+        </li>
+        <?php endif ?>
+    </ul>
+</div>

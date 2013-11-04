@@ -141,6 +141,11 @@ class Job extends AssertionConcern
         $this->logo             = $logo;
         $this->url              = $url;
         $this->position         = $position;
+
+        if (null === $token) {
+            $token = sha1($this->email . rand(11111, 99999));
+        }
+
         $this->token            = $token;
     }
 
