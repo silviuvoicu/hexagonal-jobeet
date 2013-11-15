@@ -20,6 +20,7 @@
         <testsuite name="Project Test Suite">
             <directory>bundles/*/*Bundle/Tests</directory>
             <directory>bundles/*/Bundle/*Bundle/Tests</directory>
+            <directory>bundles/*/**/Tests</directory>
             <directory>src/*/*/Test</directory>
         </testsuite>
     </testsuites>

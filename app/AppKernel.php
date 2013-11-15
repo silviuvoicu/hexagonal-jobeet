@@ -22,6 +22,7 @@ class AppKernel extends Kernel
             new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
             new Zenstruck\SlugifyBundle\ZenstruckSlugifyBundle(),
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
+            new JMS\AopBundle\JMSAopBundle(),
 
             // Application bundles
             new Jobeet\Bundle\FinderBundle\JobeetFinderBundle(),

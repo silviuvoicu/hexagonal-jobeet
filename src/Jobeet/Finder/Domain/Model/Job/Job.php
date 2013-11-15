@@ -216,7 +216,7 @@ class Job extends AssertionConcern
     /**
      * @return boolean
      */
-    public function getIsActivated()
+    public function isActivated()
     {
         return $this->is_activated;
     }
@@ -471,5 +471,20 @@ class Job extends AssertionConcern
     public function hasExpired()
     {
         return $this->expires_at < new DateTime();
+    }
+
+    public function isExpired()
+    {
+        return $this->getDaysBeforeExpires() < 0;
+    }
+
+    public function expiresSoon()
+    {
+        return $this->getDaysBeforeExpires() < 5;
+    }
+
+    public function getDaysBeforeExpires()
+    {
+        return ceil(($this->getExpiresAt()->format('U') - time()) / 86400);
     }
 }

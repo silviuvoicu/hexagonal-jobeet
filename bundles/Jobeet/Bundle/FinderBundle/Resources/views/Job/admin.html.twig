@@ -1,27 +1,28 @@
 <div id="job_actions">
     <h3>Admin</h3>
     <ul>
-        {% if not job.is_activated %}
+    {% if not job.activated %}
         <li><a href="{{ path('job_edit', { 'token': job.token }) }}">Edit</a></li>
         <li><a href="{{ path('job_edit', { 'token': job.token }) }}">Publish</a></li>
-        {% endif %}
-        <a href="{{ path('job_delete', { 'token': job.token }) }}">Delete</a>
-        {% if job.is_activated %}
-        <li<?php $job->expiresSoon() and print ' class="expires_soon"' ?>>
-        <?php if ($job->isExpired()): ?>
-        Expired
-        <?php else: ?>
-        Expires in <strong><?php echo $job->getDaysBeforeExpires() ?></strong> days
-        <?php endif ?>
+    {% endif %}
 
-        <?php if ($job->expiresSoon()): ?>
-        - <a href="">Extend</a> for another <?php echo sfConfig::get('app_active_days') ?> days
-        <?php endif ?>
+        <li><a href="{{ path('job_delete', { 'token': job.token }) }}">Delete</a></li>
+    {% if job.activated %}
+        <li{% if job.expiresSoon %} class="expires_soon"{% endif %}>
+        {% if job.expired %}
+            Expired
+        {% else %}
+            Expires in <strong>{{ job.daysBeforeExpires }}</strong> days
+        {% endif %}
+
+        {% if job.expiresSoon %}
+            - <a href="">Extend</a> for another 30 days
+        {% endif %}
         </li>
-        <?php else: ?>
+    {% else %}
         <li>
-            [Bookmark this <?php echo link_to('URL', 'job_show', $job, true) ?> to manage this job in the future.]
+            [Bookmark this <a href="{{ url('job_show', { 'token': job.token, 'company': job.company, 'location': job.location, 'position': job.position }) }}">URL</a> to manage this job in the future.]
         </li>
-        <?php endif ?>
+    {% endif %}
     </ul>
 </div>
